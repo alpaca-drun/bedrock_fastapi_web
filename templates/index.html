@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatbot</title>
+  </head>
+  <body>
+    <h1>Chatbot Interface</h1>
+    <form id="chat-form">
+      <label for="user-input">Enter your message:</label>
+      <input type="text" id="user-input" name="text" />
+      <button type="submit">Send</button>
+    </form>
+    <div id="response">
+      <h2>Response:</h2>
+      <p id="response-text"></p>
+    </div>
+    <script>
+      document
+        .getElementById("chat-form")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+          const userInput = document.getElementById("user-input").value;
+          const responseDiv = document.getElementById("response-text");
+          responseDiv.textContent = "Loading...";
+
+          const response = await fetch("/retrieve", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ text: userInput }),
+          });
+
+          const data = await response.json();
+          responseDiv.textContent = data.text;
+        });
+    </script>
+  </body>
+</html>
