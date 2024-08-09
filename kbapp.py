@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 import boto3
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
@@ -15,6 +16,7 @@ bedrock_agent_runtime = boto3.client(
 
 # 템플릿 설정
 templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 class InputModel(BaseModel):
     text: str
