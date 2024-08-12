@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 setTimeout(typeWriter, 20); 
             } else {
                 userInputElement.disabled = false;
+                sendBtn.innerHTML = "<i class='fas fa-paper-plane'></i>";
                 container.scrollTop = container.scrollHeight; 
             }
         };
