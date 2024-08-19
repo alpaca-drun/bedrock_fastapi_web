@@ -26,10 +26,13 @@ def retrieve(input: InputModel):
     kbId = ''
     modelArn = 'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0'
 
+    system_prompt = ''
+    full_prompt = system_prompt + '\n\n' + input.text
+
     try:
         response = bedrock_agent_runtime.retrieve_and_generate(
             input={
-                'text': input.text,
+                'text': full_prompt,
             },
             retrieveAndGenerateConfiguration={
                 'knowledgeBaseConfiguration': {
